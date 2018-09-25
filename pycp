@@ -1,0 +1,80 @@
+#!/usr/bin/env python2
+
+
+
+import sys
+import os
+from os import path
+import time,shutil
+
+
+# Importing File through Command Line 
+data = sys.argv[1:]
+
+
+src_file = data[0: -1]
+des_file = data[-1]
+
+print ("Destination File or Directory must be present , Program will not create any Directory or File")
+time.sleep(2)
+
+
+
+n = len(src_file)
+count = 0
+# Creating Global Variable 
+global srcfile_read
+# Initialing Bariable with Empty String 
+srcfile_read = ""
+
+for i in src_file :
+# os.path will check whether file or diectory at particular location is present or not	  
+	if os.path.isfile(i) :
+		count = count + 1
+# Opened file in read mode through looping and reading data from it 
+		f = open(i,'r')
+		srcfile_read = srcfile_read + f.read()
+	else :
+		print ("Please Enter a valid File name/File Path")
+		count = -1 
+# Loop will break
+		break
+if count == n :
+	print ("   Thank You For Providing Corrct Files/File Path  ... ")
+
+if count > 1 :
+	if os.path.isfile(des_file) :
+#Opened a file in append mode and write data which was stored in srcfile_read 
+		f3 = open(des_file,'a')
+		f3.write(srcfile_read)
+	else :
+		if os.path.isdir(des_file) :
+# Opened a directory and copying files to Destination through shutil.copy 
+			for file1 in src_file :
+				shutil.copy(file1,des_file)
+		else :
+			print ("   Atleast Provide File or Directory   ")
+		
+if count == 1 :
+	if os.path.isfile(des_file) :
+		f1=open(des_file,'a')
+		f1.write(srcfile_read)
+	else :
+		f1 = open(des_file,'w')
+		f1.write(srcfile_read)
+		print ("Please Provide file")
+if count == 0 :
+	print ("  Provide Source File & Directory as well as Destination File & Directory")
+
+
+
+
+		
+
+
+
+
+
+
+
+
